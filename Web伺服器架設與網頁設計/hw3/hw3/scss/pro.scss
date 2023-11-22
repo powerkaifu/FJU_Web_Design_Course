@@ -1,0 +1,227 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	transition: 0.5s;
+}
+
+// 根元素
+:root {
+	scroll-behavior: smooth;
+	font-size: 1.2rem;
+}
+
+body {
+	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+		url('../images/jojo_bg.jpg') no-repeat fixed center/cover;
+	font-family: '微軟正黑體';
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+img {
+	width: 100%;
+	vertical-align: middle;
+}
+
+.container {
+	width: 100%;
+	margin: auto;
+}
+
+.main-title {
+	text-align: center;
+	color: white;
+	margin-bottom: 1rem;
+	font-size: 2.5rem;
+	text-shadow: 1px 1px 1px black, 2px 2px 2px black, 5px 5px 20px black;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.col {
+	width: 100%;
+}
+
+#navigator {
+	width: 100%;
+	font-size: 1.2rem;
+	padding: 2rem 0;
+	margin-bottom: 2rem;
+
+	.logo {
+		width: 25%;
+		margin: auto;
+		padding: 1rem 0;
+	}
+
+	.menu {
+		padding: 1rem;
+		display: flex;
+		justify-content: center;
+		background: linear-gradient(to right, transparent, rgba(80, 0, 100, 0.8), transparent);
+
+		.menu-item {
+			margin: 0 0.3rem;
+		}
+		a {
+			background: #fff;
+			padding: 0.5rem 1rem;
+			border-radius: 1rem;
+			font-weight: bold;
+			display: block;
+		}
+		a:hover {
+			color: yellow;
+			background: rgb(80, 0, 100);
+			border-radius: 1rem;
+		}
+	}
+}
+
+#backtop {
+	width: 80px;
+	height: 80px;
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	border-radius: 50%;
+	background-color: #000;
+	text-align: center;
+	line-height: 80px;
+	font-size: 1.5rem;
+	a {
+		display: block;
+		color: white;
+		border-radius: 50%;
+		&:hover {
+			color: yellow;
+			background: rgb(80, 0, 100);
+		}
+	}
+}
+
+#section01,
+#section02,
+#section03,
+#section04,
+#section05 {
+	margin-bottom: 1rem;
+	.container {
+		background: #fff;
+		padding: 2rem;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		border-radius: 1rem;
+	}
+	h2 {
+		margin-bottom: 1rem;
+		background: url('../images/title.png') no-repeat center/cover;
+		width: 150px;
+		height: 55px;
+		text-align: center;
+		line-height: 55px;
+		color: yellow;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+	}
+	h3 {
+		margin-bottom: 0.5rem;
+	}
+
+	span {
+		font-weight: bold;
+	}
+	a:hover {
+		color: blue;
+		text-decoration: underline;
+	}
+	li {
+		margin-bottom: 5px;
+	}
+	p {
+		line-height: 1.6;
+		margin-bottom: 1rem;
+	}
+	.alert {
+		color: red;
+	}
+	.sub_menu {
+		margin-bottom: 1.5rem;
+	}
+}
+
+/* 媒體查詢 */
+@media (min-width: 576px) {
+	.container {
+		max-width: 540px;
+	}
+}
+
+@media (min-width: 768px) {
+	.container {
+		max-width: 720px;
+	}
+}
+
+@media (min-width: 992px) {
+	.container {
+		max-width: 960px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.container {
+		max-width: 1140px;
+	}
+
+	#section02 {
+		.col:nth-child(1) {
+			width: 30%;
+			order: 1;
+		}
+		.col:nth-child(2) {
+			padding-right: 2rem;
+			width: 70%;
+		}
+		.container {
+			overflow: hidden;
+		}
+	}
+
+	#section04 {
+		h4 {
+			margin-bottom: 0.75rem;
+		}
+		.col {
+			width: 50%;
+		}
+		.layout {
+			padding: 1rem;
+			img:hover {
+				transform: scale(1.05);
+			}
+		}
+	}
+
+	#section05 {
+		img {
+			width: 100%;
+			display: block;
+			margin-left: -15px;
+		}
+	}
+}
+
+@media (min-width: 1400px) {
+	.container {
+		max-width: 1320px;
+	}
+}
