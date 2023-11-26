@@ -117,29 +117,15 @@ img {
   background: rgb(80, 0, 100);
 }
 
-#section01,
-#section02,
-#section03,
-#section04,
-#section05 {
+section {
   margin-bottom: 1rem;
 }
-#section01 .container,
-#section02 .container,
-#section03 .container,
-#section04 .container,
-#section05 .container {
-  background: #fff;
-  padding: 2rem;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  border-radius: 1rem;
+
+section span {
+  font-weight: bold;
 }
-#section01 h2,
-#section02 h2,
-#section03 h2,
-#section04 h2,
-#section05 h2 {
+
+section h2 {
   margin-bottom: 1rem;
   background: url("../images/title.png") no-repeat center/cover;
   width: 150px;
@@ -150,55 +136,38 @@ img {
   -webkit-box-shadow: 0 0 5px rgb(0, 0, 0);
           box-shadow: 0 0 5px rgb(0, 0, 0);
 }
-#section01 h3,
-#section02 h3,
-#section03 h3,
-#section04 h3,
-#section05 h3 {
+
+section h3 {
   margin-bottom: 0.5rem;
 }
-#section01 span,
-#section02 span,
-#section03 span,
-#section04 span,
-#section05 span {
-  font-weight: bold;
-}
-#section01 a:hover,
-#section02 a:hover,
-#section03 a:hover,
-#section04 a:hover,
-#section05 a:hover {
-  color: blue;
-  text-decoration: underline;
-}
-#section01 li,
-#section02 li,
-#section03 li,
-#section04 li,
-#section05 li {
-  margin-bottom: 5px;
-}
-#section01 p,
-#section02 p,
-#section03 p,
-#section04 p,
-#section05 p {
+
+section p {
   line-height: 1.6;
   margin-bottom: 1rem;
 }
-#section01 .alert,
-#section02 .alert,
-#section03 .alert,
-#section04 .alert,
-#section05 .alert {
+
+section li {
+  margin-bottom: 5px;
+}
+
+section .container {
+  background: #fff;
+  padding: 2rem;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+}
+
+section a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+section .alert {
   color: red;
 }
-#section01 .sub_menu,
-#section02 .sub_menu,
-#section03 .sub_menu,
-#section04 .sub_menu,
-#section05 .sub_menu {
+
+section .sub_menu {
   margin-bottom: 1.5rem;
 }
 
