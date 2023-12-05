@@ -1,0 +1,532 @@
+@charset "UTF-8";
+/*
+	這份樣式表選擇器
+	id(#) 作為區塊、錨點、切換選單的，具有唯一性
+	class(.) 作為網格系統、外觀樣式、功能類別的，具有重複性
+	並使用到標籤、群組(,)、後代(半型空白)、同層全體(~)、同層相鄰(+)、偽類(:)、偽元素(::)等選擇器
+*/
+/*
+	reset 所有元素的預設樣式，讓設計者擁有最大控制權
+	::after、::before 為每個元素標籤都會有兩個偽元素(pseudo-element)，
+	就像火影忍者的影分身，一個元素可以有兩個影分身來幫本體做事情，
+*/
+*,
+*::before,
+*::after {
+  /*
+  	box-sizing 是 CSS 的盒模型計算方式，有兩種模式
+  	預設是 content-box，也就是寬度只包含內容，不包含 padding 與 border
+  	border-box 則是寬度包含內容、padding 與 border
+  	可以讓計算盒模型時調整寬度更方便，不用再去計算 padding 與 border
+  */
+  box-sizing: border-box;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /*
+  	transition 是 CSS 的轉場動畫
+  	這裡使用了 *、*::before、*::after 確保所有元素轉場過度動畫設定 transition: 0.3s
+  	轉場是兩種狀態的改變，瀏覽器會補上中間的補間動畫，讓狀態改變的過程更平滑
+  	可以看到網頁許多地方都是動態轉場
+  */
+  transition: 0.3s;
+}
+
+/*
+	:root 為根元素，等同 html
+	scroll-behavior: smooth; 為滾動行為，當點選錨點時，會有平滑的滾動效果
+*/
+:root {
+  scroll-behavior: smooth;
+  font-size: 1.2rem;
+}
+
+/*
+	html、body 設定高度為 100%，讓網頁高度永遠是 100%
+	這樣 .gray-mask 才能正確的設定高度，才能遮住整個網頁
+*/
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: url("../images/bg.jpg") no-repeat fixed center/cover;
+  font-family: "微軟正黑體";
+}
+
+/*
+	.gray-mask 是一個遮罩 mask，目的是讓上方 body 背景變成灰階色
+	透過 backdrop-filter 設定將背景變成灰階色
+	position: fixed 固定定位不受滾輪的影響，會以瀏覽器為基準點，為了遮住整個網頁
+	z-index -1 讓 .gray-mask 在網頁的最底層，不會擋到其他元素
+*/
+.gray-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  -webkit-backdrop-filter: grayscale(0.9);
+          backdrop-filter: grayscale(0.9);
+  z-index: -1;
+}
+
+/* 用於將超過 body 高度的內容隱藏起來  */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+h1,
+h2,
+p {
+  margin-bottom: 1rem;
+}
+
+p {
+  text-indent: 2rem;
+}
+
+h1 {
+  font-size: 40px;
+  width: 220px;
+  margin: auto;
+  color: black;
+  text-align: center;
+  background: #fff;
+  border: 2px solid #000;
+  position: relative;
+  top: 30px;
+  z-index: 1;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+/* vertical-align 可以消除圖片底部的幽靈空白 */
+img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+/*
+	.container 是一個容器，目的讓內容寬度一致
+	這邊的 .container 是裝置最小尺寸時會是 100% 寬度，
+	最底下有設定媒體查詢，當螢幕尺寸大於其他尺寸時，它會改變尺寸
+	因此在其他尺寸時，.container 會是最大寬度為 540px、720px、960px、1140px、1320px
+	固定寬度容器配合 margin: auto 可以讓容器水平置中
+*/
+.container {
+  width: 100%;
+  background: #fff;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 2px solid #000;
+  position: relative;
+}
+
+/*
+	display: flex 是宣告這個容器是一個彈性盒
+	是目前主流的網頁排版方式，常被用於網格系統 grid-system
+	flex-wrap 是宣告當容器內的元素超出容器寬度時，是否要換行
+
+	.row 為一列
+	.col 為一欄
+	用來作網格欄位使用，有利於佈局
+
+	容器(container)、列(row)、欄(col)、媒體查詢(media query) 是響應式網格系統的核心設計
+*/
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col {
+  width: 100%;
+}
+
+/* 導覽列 ---------------------------------------------------------------------------------- */
+/*
+	.menu 為導覽列選單，使用 flex 排版，讓選單項目水平垂直置中
+	justify-content: center 將彈性盒主軸(main-axis) 對齊中間點
+	align-items: center 將彈性盒次軸(cross-axis) 對齊中間點	
+*/
+/* .menu-item + .menu-item 為選單項目的分隔線，使用 + 選擇器，選取同層的下一個元素 */
+/* .menu-item:not(:nth-child(4)) a 為不是第四個子元素的元素的 a 標籤 */
+#navigator {
+  width: 100%;
+  margin-top: 40px;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+#navigator .menu {
+  display: flex;
+  background: #fff;
+  justify-content: center;
+  align-items: center;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+  padding: 10px 0;
+}
+#navigator .menu-item + .menu-item {
+  border-left: 1px solid #000;
+}
+#navigator .menu-item:nth-child(4) {
+  position: absolute;
+  width: 10%;
+  border: none;
+}
+#navigator .menu-item:nth-child(5) {
+  margin-left: 15%;
+  border-left: none;
+}
+#navigator .menu-item:not(:nth-child(4)) a {
+  display: block;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+#navigator .menu-item:not(:nth-child(4)) a:hover {
+  background: darkmagenta;
+  color: yellow;
+}
+
+/* 首頁 ---------------------------------------------------------------------------------- */
+#index-content {
+  position: relative;
+  top: 250px;
+}
+#index-content .container {
+  padding: 50px 450px 100px 20px;
+}
+#index-content .index_star_platinum {
+  position: absolute;
+  right: -20px;
+  top: -150px;
+}
+#index-content .index_star_platinum img {
+  width: 550px;
+}
+
+/* 喬斯達家族 ---------------------------------------------------------------------------------- */
+/*
+	這邊的分頁切換選單，使用了 CSS 的偽類(虛擬類別) :checked 與 ~ 同層全體選取器完成
+	label 屬性 for 值必須對應到 input 的 id，
+	label 作為選單的按鈕，當點選時，會觸發對應 id 的 checked 狀態，
+	並且指向同層的 .ch1 ~ .ch6 讓對應的分頁內容顯示出來
+*/
+#family-content {
+  position: relative;
+  top: 150px;
+}
+#family-content .container {
+  padding: 50px 450px 50px 20px;
+}
+#family-content .family-menu {
+  width: 100%;
+  display: flex;
+  margin-bottom: 1rem;
+}
+#family-content .ch1,
+#family-content .ch2,
+#family-content .ch3,
+#family-content .ch4,
+#family-content .ch5,
+#family-content .ch6 {
+  display: none;
+  position: relative;
+}
+#family-content .ch1_img {
+  width: 500px;
+  position: absolute;
+  right: -500px;
+  top: -150px;
+}
+#family-content .ch2_img {
+  width: 700px;
+  position: absolute;
+  right: -700px;
+  top: -150px;
+}
+#family-content .ch3_img {
+  width: 500px;
+  position: absolute;
+  right: -500px;
+  top: -180px;
+}
+#family-content .ch4_img {
+  width: 600px;
+  position: absolute;
+  right: -550px;
+  top: -200px;
+}
+#family-content .ch5_img {
+  width: 600px;
+  position: absolute;
+  right: -600px;
+  top: -200px;
+}
+#family-content .ch6_img {
+  width: 600px;
+  position: absolute;
+  right: -600px;
+  top: -230px;
+}
+#family-content label {
+  border: 1px solid #000;
+  padding: 5px 10px;
+}
+#family-content label:hover {
+  background: #000;
+  color: yellow;
+  cursor: pointer;
+}
+#family-content label + label {
+  margin-left: 3px;
+}
+#family-content input[type=radio] {
+  display: none;
+}
+#family-content #jonathan:checked ~ .ch1,
+#family-content #joseph:checked ~ .ch2,
+#family-content #jotaro:checked ~ .ch3,
+#family-content #josuke:checked ~ .ch4,
+#family-content #giorno:checked ~ .ch5,
+#family-content #jolyne:checked ~ .ch6 {
+  display: block;
+}
+#family-content #jonathan:checked ~ .family-menu label[for=jonathan],
+#family-content #joseph:checked ~ .family-menu label[for=joseph],
+#family-content #jotaro:checked ~ .family-menu label[for=jotaro],
+#family-content #josuke:checked ~ .family-menu label[for=josuke],
+#family-content #giorno:checked ~ .family-menu label[for=giorno],
+#family-content #jolyne:checked ~ .family-menu label[for=jolyne] {
+  background: #000;
+  color: yellow;
+}
+
+/* 故事劇情 --------------------------------------------------------------------------------- */
+#story-content {
+  position: relative;
+  top: 150px;
+}
+#story-content .container {
+  padding: 50px 20px;
+}
+
+#story-content img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+#story-content .row {
+  justify-content: center;
+  margin-bottom: 1rem;
+  border: 1px solid #aaa;
+}
+
+#story-content .col {
+  padding: 10px;
+}
+
+#story-content .col:nth-child(odd) {
+  width: 25%;
+}
+
+#story-content .col:nth-child(even) {
+  width: 75%;
+}
+
+.row:nth-child(odd) .col:nth-child(1) {
+  order: 1;
+}
+
+.row:nth-child(odd) .col:nth-child(2) {
+  order: 2;
+}
+
+.row:nth-child(even) .col:nth-child(1) {
+  order: 2;
+}
+
+.row:nth-child(even) .col:nth-child(2) {
+  order: 1;
+}
+
+/* 作品特色 --------------------------------------------------------------------------------- */
+#features-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#features-content .col {
+  padding: 10px;
+}
+
+#features-content .container {
+  padding-top: 50px;
+}
+
+#features-content .features-card {
+  padding: 10px;
+  position: relative;
+  border: 1px solid #aaa;
+}
+
+#features-content .features-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-10px);
+}
+
+#features-content .features-card-title {
+  color: white;
+  text-shadow: 1px 1px 1px black, 2px 2px 2px black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#features-content .features-card p {
+  text-indent: 0;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+  background: purple;
+}
+
+/* 替身系統 ---------------------------------------------------------------------------------- */
+#stand-content {
+  position: relative;
+  top: 150px;
+}
+
+#stand-content .container {
+  padding: 50px 20px;
+}
+
+#stand-content ul {
+  margin-left: 50px;
+  margin-bottom: 1rem;
+}
+
+#stand-content li {
+  list-style-type: disc;
+  list-style-position: outside;
+  list-style-image: none;
+  margin-left: 20px;
+  padding: 5px;
+}
+
+#stand-content .stand-01 {
+  width: 400px;
+  position: absolute;
+  right: 300px;
+  z-index: 10;
+}
+
+#stand-content .stand-02 {
+  width: 600px;
+  position: absolute;
+  left: -150px;
+  top: 500px;
+  z-index: 2;
+}
+
+#stand-content img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+/* 喬迷倉庫 ---------------------------------------------------------------------------------- */
+#fans-content {
+  position: relative;
+  top: 150px;
+}
+#fans-content .container {
+  padding-bottom: 50px;
+}
+#fans-content .fans-list {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+}
+#fans-content img {
+  width: auto;
+}
+#fans-content td,
+#fans-content th {
+  padding: 10px;
+  border: 1px solid #000;
+}
+#fans-content td:nth-child(2) {
+  text-align: center;
+}
+#fans-content a {
+  color: blue;
+}
+#fans-content a:hover {
+  text-decoration: underline;
+}
+
+/* footer ---------------------------------------------------------------------------------- */
+#footer-fixed {
+  width: 100%;
+  text-align: center;
+  background: #fff;
+  border-top: 3px solid #000;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+}
+
+/*
+	@media 為媒體查詢，用於響應式
+	這邊用了 576px 768px 992px 1200px 1400px 當作斷點
+	斷點意思是當螢幕寬度大於等於上述任一尺寸時，會套用裡面的樣式
+	例如當螢幕尺寸經過 576px，一直到 767px，.container 會的最大寬度 max-width 會是 540px
+	當螢幕尺寸經過 768px，一直到 991px，.container 會的最大寬度 max-width 會是 720px，以及 .col 的寬度會是 33.333333%
+	這樣的設計方式，可以讓網頁在不同尺寸的螢幕上，都能有最佳的呈現，就像水流進入不同尺寸的容器，都能自動調整容器大小一樣
+*/
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+  .col {
+    width: 33.333333%;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
