@@ -519,7 +519,7 @@ img {
 }
 
 /* 喬迷倉庫 ---------------------------------------------------------------------------------- */
-/* 表格的設定 */
+/* 表格的設定，border-collapse 將儲存格之間距離合併 */
 #fans-content {
   position: relative;
   top: 50px;
@@ -566,7 +566,7 @@ img {
   z-index: 1000;
 }
 
-/* @media 為媒體查詢，用於響應式，只用於 .container 與 .row 的調整 */
+/* @media 為媒體查詢，用於響應式，只用於 .container 與 .col 的調整 */
 @media (min-width: 576px) {
   .container {
     max-width: 540px;
