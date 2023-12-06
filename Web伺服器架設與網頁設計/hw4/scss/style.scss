@@ -1,20 +1,20 @@
 /*
 	這份樣式表選擇器
-	id(#) 作為區塊、錨點、切換選單的，具有唯一性
+	id(#) 作為區塊、錨點、切換選單，具有唯一性
 	class(.) 作為網格系統、外觀樣式、功能類別的，具有重複性
-	並使用到標籤、群組(,)、後代(半型空白)、同層全體(~)、同層相鄰(+)、偽類(:)、偽元素(::)等選擇器
+	並使用到標籤、群組(,)、後代(半型空白)、nth-child、屬性、同層全體(~)、同層相鄰(+)、偽類(:)、偽元素(::)等等選擇器
 */
 
 /*
-	reset 所有元素的預設樣式，讓設計者擁有最大控制權
-	::after、::before 為每個元素標籤都會有兩個偽元素(pseudo-element)，
-	就像火影忍者的影分身，一個元素可以有兩個影分身來幫本體做事情，
+	全局 reset 讓設計者擁有最大控制權
+	::after、::before 為每個元素標籤都會有兩個偽元素(pseudo-element)
+	就像火影忍者的影分身，一個元素可以有兩個影分身來幫本體做事情
 */
 *,
 *::before,
 *::after {
 	/*
-		box-sizing 是 CSS 的盒模型計算方式，有兩種模式
+		box-sizing 是 CSS 的盒模型計算方式，通常使用兩種模式
 		預設是 content-box，也就是寬度只包含內容，不包含 padding 與 border
 		border-box 則是寬度包含內容、padding 與 border
 		可以讓計算盒模型時調整寬度更方便，不用再去計算 padding 與 border
@@ -32,64 +32,63 @@
 	transition: 0.3s;
 }
 
-/*
-	:root 為根元素，等同 html
-	scroll-behavior: smooth; 為滾動行為，當點選錨點時，會有平滑的滾動效果
-*/
+/* :root 為根元素，等同 html */
 :root {
-	scroll-behavior: smooth;
 	font-size: 1.2rem;
 }
 
-/*
-	html、body 設定高度為 100%，讓網頁高度永遠是 100%
-	這樣 .gray-mask 才能正確的設定高度，才能遮住整個網頁
-*/
+/* html、body 設定高度為 100%，這樣 index.html 的 .bg 才能正確的設定高度 */
 html,
 body {
 	height: 100%;
 }
 
+/* 使用微軟正黑體 */
 body {
-	background: url('../images/bg.jpg') no-repeat fixed center/cover;
 	font-family: '微軟正黑體';
 }
 
 /*
-	.gray-mask 是一個遮罩 mask，目的是讓上方 body 背景變成灰階色
-	透過 backdrop-filter 設定將背景變成灰階色
-	position: fixed 固定定位不受滾輪的影響，會以瀏覽器為基準點，為了遮住整個網頁
-	z-index -1 讓 .gray-mask 在網頁的最底層，不會擋到其他元素
+  顯示背景專用，因為各頁都共用同一支外部樣式表，且選單頁面使用 iframe 嵌入，背景若寫在 body 裡面
+	iframe 與 body 都會有背景，因此使用一個圖層 .bg 當作背景
+	position: fixed 固定定位不受捲動軸的影響，會以瀏覽器左上角為基準點，達到背景固定的效果
+	z-index -1 讓 .bg 在文件最底層，不會擋到其他元素
+	這邊還使用了雙層背景，一層是線性漸層，一層是圖片，背景以 45 度角做漸層
 */
-.gray-mask {
+.bg {
+	background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, transparent 50%, rgba(0, 0, 0, 1) 100%),
+		url('../images/bg.jpg') no-repeat fixed center/cover;
 	width: 100%;
 	height: 100%;
 	position: fixed;
 	top: 0;
-	backdrop-filter: grayscale(0.9);
 	z-index: -1;
 }
 
-/* 用於將超過 body 高度的內容隱藏起來  */
+/* 用於將溢出 body 高度的內容隱藏起來，使用在喬斯達家族  */
 .overflow-hidden {
 	overflow: hidden;
 }
 
+/*  連結樣式，去除底線，文字顏色為黑色 */
 a {
 	text-decoration: none;
 	color: black;
 }
 
+/* 群組選擇器，選取所有 h1、h2、p 標籤，並設定 margin-bottom: 1rem */
 h1,
 h2,
 p {
 	margin-bottom: 1rem;
 }
 
+/* p 的文字縮排 */
 p {
 	text-indent: 2rem;
 }
 
+/* h1 的文字大小、寬度、水平置中、背景、邊框、相對定位、z-index 等樣式 */
 h1 {
 	font-size: 40px;
 	width: 220px;
@@ -103,6 +102,7 @@ h1 {
 	z-index: 1;
 }
 
+/* h2 的文字大小 */
 h2 {
 	font-size: 30px;
 }
@@ -114,11 +114,10 @@ img {
 }
 
 /*
-	.container 是一個容器，目的讓內容寬度一致
-	這邊的 .container 是裝置最小尺寸時會是 100% 寬度，
-	最底下有設定媒體查詢，當螢幕尺寸大於其他尺寸時，它會改變尺寸
-	因此在其他尺寸時，.container 會是最大寬度為 540px、720px、960px、1140px、1320px
-	固定寬度容器配合 margin: auto 可以讓容器水平置中
+	.container 是一個內容容器，目的讓內容寬度一致
+	裝置最小尺寸時會是 100% 寬度
+	最底下有設定媒體查詢，當螢幕尺寸大於其他尺寸時，會改變尺寸
+	寬度容器配合 margin: auto 讓容器水平置中
 */
 .container {
 	width: 100%;
@@ -131,15 +130,14 @@ img {
 }
 
 /*
-	display: flex 是宣告這個容器是一個彈性盒
-	是目前主流的網頁排版方式，常被用於網格系統 grid-system
+	display: flex 宣告容器為彈性盒，用於我的欄位布局
 	flex-wrap 是宣告當容器內的元素超出容器寬度時，是否要換行
 
 	.row 為一列
 	.col 為一欄
-	用來作網格欄位使用，有利於佈局
+	用來作網格欄位使用
 
-	容器(container)、列(row)、欄(col)、媒體查詢(media query) 是響應式網格系統的核心設計
+	容器(container)、列(row)、欄(col)、媒體查詢(media query)
 */
 .row {
 	display: flex;
@@ -150,13 +148,26 @@ img {
 	width: 100%;
 }
 
-/* 導覽列 ---------------------------------------------------------------------------------- */
+/* Main 顯示區 ------------------------------------------------------------------------------*/
 /*
-	.menu 為導覽列選單，使用 flex 排版，讓選單項目水平垂直置中，
-	它也是 position:fixed 固定定位，可以顯示在頁面最上層
-	justify-content: center 將彈性盒主軸(main-axis) 對齊中間點
-	align-items: center 將彈性盒次軸(cross-axis) 對齊中間點	
+	calc 計算高度，100vh 為螢幕高度
+	因為導覽列 + footer 的高度大約為 151px
+	100vh - 151px 可以計算出頁面剩餘的高度，讓 iframe 的高度可以填滿剩餘的高度
+	並下移 102px，因為導覽列的高度為 102px
 */
+#main {
+	height: calc(100vh - 151px);
+	position: relative;
+	top: 102px;
+}
+
+#main iframe {
+	width: 100%;
+	height: 100%;
+}
+
+/* 導覽列 ---------------------------------------------------------------------------------- */
+/* 固定定位在頁面最上方 */
 #navigator {
 	width: 100%;
 	margin-top: 40px;
@@ -165,6 +176,12 @@ img {
 	z-index: 1000;
 }
 
+/*
+	.menu 為導覽列選單，使用 flex 排版，讓選單項目水平垂直置中
+	它也是 position:fixed 固定定位，可以顯示在頁面最上層
+	justify-content: center 將彈性盒主軸(main-axis) 對齊中間點
+	align-items: center 將彈性盒次軸(cross-axis) 對齊中間點
+*/
 #navigator .menu {
 	display: flex;
 	background: #fff;
@@ -179,6 +196,7 @@ img {
 #navigator .menu-item + .menu-item {
 	border-left: 1px solid #000;
 }
+
 /* .menu-item:not(:nth-child(4)) a 為不是第四個子元素的元素的 a 標籤 */
 #navigator .menu-item:nth-child(4) {
 	position: absolute;
@@ -200,10 +218,10 @@ img {
 	}
 }
 
-/* 首頁 ---------------------------------------------------------------------------------- */
+/* 首頁內容 ---------------------------------------------------------------------------------- */
 #index-content {
 	position: relative;
-	top: 250px;
+	top: 100px;
 	.container {
 		padding: 50px 450px 100px 20px;
 	}
@@ -221,13 +239,13 @@ img {
 /* 喬斯達家族 ---------------------------------------------------------------------------------- */
 /*
 	這邊的分頁切換選單，使用了 CSS 的偽類(虛擬類別) :checked 與 ~ 同層全體選取器完成
-	label 屬性 for 值必須對應到 input 的 id，
-	label 作為選單的按鈕，當點選時，會觸發對應 id 的 checked 狀態，
+	label 屬性 for 值必須對應到 input 的 id
+	label 作為選單的按鈕，當點選時，會觸發對應 id 的 checked 狀態
 	並且指向同層的 .ch1 ~ .ch6 讓對應的分頁內容顯示出來
 */
 #family-content {
 	position: relative;
-	top: 150px;
+	top: 50px;
 	.container {
 		padding: 50px 450px 50px 20px;
 	}
@@ -292,18 +310,20 @@ img {
 	top: -130px;
 }
 
+/* 設定邊框、內距 */
 #family-content label {
 	border: 1px solid #000;
 	padding: 5px 10px;
 }
 
-/* hover 過去 label 會友樣式轉場變化 */
+/* hover 過去 label 轉場變化 */
 #family-content label:hover {
 	background: #000;
 	color: yellow;
 	cursor: pointer;
 }
 
+// 同層相鄰選取器，選取 label 的下一個 label，設定左外距
 #family-content label + label {
 	margin-left: 3px;
 }
@@ -335,24 +355,26 @@ img {
 }
 
 /* 故事劇情 --------------------------------------------------------------------------------- */
+/* 相對定位 */
 #story-content {
 	position: relative;
-	top: 150px;
+	top: 50px;
 }
 
+/* 設定內距，上下 50px，左右 20px  */
 #story-content .container {
 	padding: 50px 20px;
 }
 
+// object-fit 可以讓圖片依據容器比例做調整
 #story-content img {
 	width: 100%;
 	height: 100%;
-	// object-fit: contain
 	object-fit: contain;
 }
 
+// 彈性盒主軸對齊中央
 #story-content .row {
-	// 彈性盒主軸對齊中央
 	justify-content: center;
 	margin-bottom: 1rem;
 	border: 1px solid #aaa;
@@ -362,11 +384,11 @@ img {
 	padding: 10px;
 }
 
-// 奇數欄位
+// 奇數欄位設定寬度
 #story-content .col:nth-child(odd) {
 	width: 25%;
 }
-// 偶數欄位
+// 偶數欄位設定寬度
 #story-content .col:nth-child(even) {
 	width: 75%;
 }
@@ -399,14 +421,17 @@ img {
 }
 
 #features-content .col {
+	/* 設定內距 */
 	padding: 10px;
 }
 
 #features-content .container {
+	/* 設定上內距 */
 	padding-top: 50px;
 }
 
 #features-content .features-card {
+	/* 相對定位，用於產生定位界線，讓 .features-card-title 可以對齊正中央 */
 	padding: 10px;
 	position: relative;
 	border: 1px solid #aaa;
@@ -422,7 +447,7 @@ img {
 	color: white;
 	// 文字陰影
 	text-shadow: 1px 1px 1px black, 2px 2px 2px black;
-	/* 絕對定位的水平垂直置中 */
+	/* 讓作品特色標題，以絕對定位做水平垂直置中 */
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -430,29 +455,39 @@ img {
 }
 
 #features-content .features-card p {
-	// 文字縮排
+	/* 文字縮排 */
 	text-indent: 0;
+	/* 內距 */
 	padding: 10px;
+	/* 文字水平置中 */
 	text-align: center;
+	/* 字體大小 */
 	font-size: 1.2rem;
+	/* 文字顏色 */
 	color: white;
+	/* 背景顏色 */
 	background: purple;
 }
 /* 替身系統 ---------------------------------------------------------------------------------- */
 #stand-content {
+	/* 設定相對定位 */
 	position: relative;
-	top: 150px;
+	top: 50px;
 }
 
 #stand-content .container {
+	/* 內距 */
 	padding: 50px 20px;
 }
+
 #stand-content ul {
+	/* 無序清單設定 */
 	margin-left: 50px;
 	margin-bottom: 1rem;
 }
+
 #stand-content li {
-	/* 最上面做了 reset，再將列表清單 li 的樣式設定回來 */
+	/* 最上面因為做了全局 reset，因此再將列表清單 li 的樣式設定回來 */
 	list-style-type: disc;
 	list-style-position: outside;
 	list-style-image: none;
@@ -485,9 +520,10 @@ img {
 }
 
 /* 喬迷倉庫 ---------------------------------------------------------------------------------- */
+/* 表格的設定 */
 #fans-content {
 	position: relative;
-	top: 150px;
+	top: 50px;
 	.container {
 		padding-bottom: 50px;
 	}
@@ -504,7 +540,7 @@ img {
 	td,
 	th {
 		padding: 10px;
-		border: 1px solid #000;
+		border: 1px solid #aaa;
 	}
 	td:nth-child(2) {
 		text-align: center;
@@ -518,7 +554,7 @@ img {
 }
 
 /* footer ---------------------------------------------------------------------------------- */
-/* 
+/*
 	fixed 固定定位在頁面最下方
 	z-index 1000 確保定位在最上層，不被其他定位覆蓋
 */
