@@ -107,7 +107,7 @@ h2 {
 	font-size: 30px;
 }
 
-/* vertical-align 可以消除圖片底部的幽靈空白 */
+/* 圖片 width:100% 符合外容器寬度，vertical-align 可以消除圖片底部的幽靈空白 */
 img {
 	width: 100%;
 	vertical-align: middle;
@@ -152,50 +152,51 @@ img {
 
 /* 導覽列 ---------------------------------------------------------------------------------- */
 /*
-	.menu 為導覽列選單，使用 flex 排版，讓選單項目水平垂直置中
+	.menu 為導覽列選單，使用 flex 排版，讓選單項目水平垂直置中，
+	它也是 position:fixed 固定定位，可以顯示在頁面最上層
 	justify-content: center 將彈性盒主軸(main-axis) 對齊中間點
 	align-items: center 將彈性盒次軸(cross-axis) 對齊中間點	
 */
-
-/* .menu-item + .menu-item 為選單項目的分隔線，使用 + 選擇器，選取同層的下一個元素 */
-/* .menu-item:not(:nth-child(4)) a 為不是第四個子元素的元素的 a 標籤 */
-
 #navigator {
 	width: 100%;
 	margin-top: 40px;
 	position: fixed;
 	top: 0;
 	z-index: 1000;
-	.menu {
-		display: flex;
-		background: #fff;
-		justify-content: center;
-		align-items: center;
-		border-top: 3px solid #000;
-		border-bottom: 3px solid #000;
-		padding: 10px 0;
-	}
-	.menu-item + .menu-item {
-		border-left: 1px solid #000;
-	}
+}
 
-	.menu-item:nth-child(4) {
-		position: absolute;
-		width: 10%;
-		border: none;
-	}
-	.menu-item:nth-child(5) {
-		margin-left: 15%;
-		border-left: none;
-	}
-	.menu-item:not(:nth-child(4)) a {
-		display: block;
-		font-weight: bold;
-		padding: 5px 10px;
-		&:hover {
-			background: darkmagenta;
-			color: yellow;
-		}
+#navigator .menu {
+	display: flex;
+	background: #fff;
+	justify-content: center;
+	align-items: center;
+	border-top: 3px solid #000;
+	border-bottom: 3px solid #000;
+	padding: 10px 0;
+}
+
+/* .menu-item + .menu-item 為選單項目的分隔線，使用 + 選擇器，選取同層的下一個元素 */
+#navigator .menu-item + .menu-item {
+	border-left: 1px solid #000;
+}
+/* .menu-item:not(:nth-child(4)) a 為不是第四個子元素的元素的 a 標籤 */
+#navigator .menu-item:nth-child(4) {
+	position: absolute;
+	width: 10%;
+	border: none;
+}
+
+#navigator .menu-item:nth-child(5) {
+	margin-left: 15%;
+	border-left: none;
+}
+#navigator .menu-item:not(:nth-child(4)) a {
+	display: block;
+	font-weight: bold;
+	padding: 5px 10px;
+	&:hover {
+		background: darkmagenta;
+		color: yellow;
 	}
 }
 
@@ -203,7 +204,6 @@ img {
 #index-content {
 	position: relative;
 	top: 250px;
-
 	.container {
 		padding: 50px 450px 100px 20px;
 	}
@@ -231,118 +231,128 @@ img {
 	.container {
 		padding: 50px 450px 50px 20px;
 	}
-	.family-menu {
-		width: 100%;
-		display: flex;
-		margin-bottom: 1rem;
-	}
+}
+#family-content .family-menu {
+	width: 100%;
+	display: flex;
+	margin-bottom: 1rem;
+}
 
-	.ch1,
-	.ch2,
-	.ch3,
-	.ch4,
-	.ch5,
-	.ch6 {
-		display: none;
-		position: relative;
-	}
+// 角色資料先全部隱藏，position:relative 用於內部圖片(.ch1_img 到 .ch6_img)絕對定位，其位移對齊依據
+#family-content .ch1,
+#family-content .ch2,
+#family-content .ch3,
+#family-content .ch4,
+#family-content .ch5,
+#family-content .ch6 {
+	display: none;
+	position: relative;
+}
 
-	.ch1_img {
-		width: 500px;
-		position: absolute;
-		right: -500px;
-		top: -50px;
-	}
+/* 角色大圖定位，對齊位置其定位對齊會參考 .ch1~.ch6(上方的群組選擇器) */
+#family-content .ch1_img {
+	width: 500px;
+	position: absolute;
+	right: -500px;
+	top: -50px;
+}
 
-	.ch2_img {
-		width: 700px;
-		position: absolute;
-		right: -700px;
-		top: -150px;
-	}
+#family-content .ch2_img {
+	width: 700px;
+	position: absolute;
+	right: -700px;
+	top: -150px;
+}
 
-	.ch3_img {
-		width: 500px;
-		position: absolute;
-		right: -500px;
-		top: -180px;
-	}
+#family-content .ch3_img {
+	width: 500px;
+	position: absolute;
+	right: -500px;
+	top: -180px;
+}
 
-	.ch4_img {
-		width: 600px;
-		position: absolute;
-		right: -550px;
-		top: -200px;
-	}
+#family-content .ch4_img {
+	width: 600px;
+	position: absolute;
+	right: -550px;
+	top: -200px;
+}
 
-	.ch5_img {
-		width: 600px;
-		position: absolute;
-		right: -600px;
-		top: -150px;
-	}
+#family-content .ch5_img {
+	width: 600px;
+	position: absolute;
+	right: -600px;
+	top: -150px;
+}
 
-	.ch6_img {
-		width: 600px;
-		position: absolute;
-		right: -600px;
-		top: -130px;
-	}
+#family-content .ch6_img {
+	width: 600px;
+	position: absolute;
+	right: -600px;
+	top: -130px;
+}
 
-	label {
-		border: 1px solid #000;
-		padding: 5px 10px;
-	}
+#family-content label {
+	border: 1px solid #000;
+	padding: 5px 10px;
+}
 
-	label:hover {
-		background: #000;
-		color: yellow;
-		cursor: pointer;
-	}
+/* hover 過去 label 會友樣式轉場變化 */
+#family-content label:hover {
+	background: #000;
+	color: yellow;
+	cursor: pointer;
+}
 
-	label + label {
-		margin-left: 3px;
-	}
+#family-content label + label {
+	margin-left: 3px;
+}
 
-	input[type='radio'] {
-		display: none;
-	}
+/* 隱藏所有 input */
+#family-content input[type='radio'] {
+	display: none;
+}
 
-	#jonathan:checked ~ .ch1,
-	#joseph:checked ~ .ch2,
-	#jotaro:checked ~ .ch3,
-	#josuke:checked ~ .ch4,
-	#giorno:checked ~ .ch5,
-	#jolyne:checked ~ .ch6 {
-		display: block;
-	}
+/* 當 input 被 chekced 狀態時會定應到 ~ 後面的 class，讓其顯示 */
+#jonathan:checked ~ .ch1,
+#joseph:checked ~ .ch2,
+#jotaro:checked ~ .ch3,
+#josuke:checked ~ .ch4,
+#giorno:checked ~ .ch5,
+#jolyne:checked ~ .ch6 {
+	display: block;
+}
 
-	#jonathan:checked ~ .family-menu label[for='jonathan'],
-	#joseph:checked ~ .family-menu label[for='joseph'],
-	#jotaro:checked ~ .family-menu label[for='jotaro'],
-	#josuke:checked ~ .family-menu label[for='josuke'],
-	#giorno:checked ~ .family-menu label[for='giorno'],
-	#jolyne:checked ~ .family-menu label[for='jolyne'] {
-		background: #000;
-		color: yellow;
-	}
+/* 當 input 被 chekced 狀態時會定應到 ~ 後面的屬性選擇器，讓其有 active 的效果 */
+#jonathan:checked ~ .family-menu label[for='jonathan'],
+#joseph:checked ~ .family-menu label[for='joseph'],
+#jotaro:checked ~ .family-menu label[for='jotaro'],
+#josuke:checked ~ .family-menu label[for='josuke'],
+#giorno:checked ~ .family-menu label[for='giorno'],
+#jolyne:checked ~ .family-menu label[for='jolyne'] {
+	background: #000;
+	color: yellow;
 }
 
 /* 故事劇情 --------------------------------------------------------------------------------- */
 #story-content {
 	position: relative;
 	top: 150px;
-	.container {
-		padding: 50px 20px;
-	}
 }
+
+#story-content .container {
+	padding: 50px 20px;
+}
+
 #story-content img {
 	width: 100%;
 	height: 100%;
+	// object-fit: contain
 	object-fit: contain;
 }
 
 #story-content .row {
+	// 彈性盒主軸對齊中央
 	justify-content: center;
 	margin-bottom: 1rem;
 	border: 1px solid #aaa;
@@ -352,29 +362,36 @@ img {
 	padding: 10px;
 }
 
+// 奇數欄位
 #story-content .col:nth-child(odd) {
 	width: 25%;
 }
-
+// 偶數欄位
 #story-content .col:nth-child(even) {
 	width: 75%;
 }
 
+// order 為對調彈性盒(flexbox) 的彈性項目的位置
+/* 選擇奇數的 row，它的第 1 個 col，排序在第 1 個位置 */
 .row:nth-child(odd) .col:nth-child(1) {
 	order: 1;
 }
+/* 選擇奇數的 row，它的第 2 個 col，排序在第 2 個位置 */
 .row:nth-child(odd) .col:nth-child(2) {
 	order: 2;
 }
+/* 選擇偶數的 row，它的第 1 個 col，排序在第 2 個位置 */
 .row:nth-child(even) .col:nth-child(1) {
 	order: 2;
 }
+/* 選擇偶數的 row，它的第 2 個 col，排序在第 1 個位置 */
 .row:nth-child(even) .col:nth-child(2) {
 	order: 1;
 }
 
 /* 作品特色 --------------------------------------------------------------------------------- */
 #features-content {
+	/* 絕對定位的水平垂直置中 */
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -395,6 +412,7 @@ img {
 	border: 1px solid #aaa;
 }
 
+/* 滑鼠 hover 該頁面三張圖片會有陰影及往上移動效果 */
 #features-content .features-card:hover {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	transform: translateY(-10px);
@@ -402,7 +420,9 @@ img {
 
 #features-content .features-card-title {
 	color: white;
+	// 文字陰影
 	text-shadow: 1px 1px 1px black, 2px 2px 2px black;
+	/* 絕對定位的水平垂直置中 */
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -410,6 +430,7 @@ img {
 }
 
 #features-content .features-card p {
+	// 文字縮排
 	text-indent: 0;
 	padding: 10px;
 	text-align: center;
@@ -431,6 +452,7 @@ img {
 	margin-bottom: 1rem;
 }
 #stand-content li {
+	/* 最上面做了 reset，再將列表清單 li 的樣式設定回來 */
 	list-style-type: disc;
 	list-style-position: outside;
 	list-style-image: none;
@@ -438,6 +460,7 @@ img {
 	padding: 5px;
 }
 
+/* 用於 wow.js 的圖片，做了定位 */
 #stand-content .stand-01 {
 	width: 400px;
 	position: absolute;
@@ -445,14 +468,16 @@ img {
 	z-index: 10;
 }
 
+/* 用於 wow.js 的圖片，做了定位 */
 #stand-content .stand-02 {
 	width: 600px;
 	position: absolute;
 	left: -100px;
 	top: 800px;
-	z-index: 2;
+	z-index: 10;
 }
 
+/* 當圖片尺寸與容器比例不相符時，object-fit 可以將圖片調整成與容器比例一致，但會犧牲一些裁切 */
 #stand-content img {
 	width: 100%;
 	height: 100%;
@@ -493,6 +518,10 @@ img {
 }
 
 /* footer ---------------------------------------------------------------------------------- */
+/* 
+	fixed 固定定位在頁面最下方
+	z-index 1000 確保定位在最上層，不被其他定位覆蓋
+*/
 #footer-fixed {
 	width: 100%;
 	text-align: center;
@@ -504,14 +533,7 @@ img {
 	z-index: 1000;
 }
 
-/*
-	@media 為媒體查詢，用於響應式
-	這邊用了 576px 768px 992px 1200px 1400px 當作斷點
-	斷點意思是當螢幕寬度大於等於上述任一尺寸時，會套用裡面的樣式
-	例如當螢幕尺寸經過 576px，一直到 767px，.container 會的最大寬度 max-width 會是 540px
-	當螢幕尺寸經過 768px，一直到 991px，.container 會的最大寬度 max-width 會是 720px，以及 .col 的寬度會是 33.333333%
-	這樣的設計方式，可以讓網頁在不同尺寸的螢幕上，都能有最佳的呈現，就像水流進入不同尺寸的容器，都能自動調整容器大小一樣
-*/
+/* @media 為媒體查詢，用於響應式，只用於 .container 與 .row 的調整 */
 @media (min-width: 576px) {
 	.container {
 		max-width: 540px;

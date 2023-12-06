@@ -11,7 +11,7 @@
 </head>
 
 <body>
-
+  <!-- 導覽列 ----------------------------------------------------------------------------->
   <nav id="navigator">
     <ul class="menu">
       <li class="menu-item"><a href="./index.html">回首頁</a></li>
@@ -25,6 +25,7 @@
     </ul>
   </nav>
 
+  <!-- 作品特色 ----------------------------------------------------------------------------->
   <section id="features-content">
     <h1>作品特色</h1>
     <div class="container">
@@ -60,20 +61,22 @@
     </div>
   </section>
 
+  <!-- 頁尾區 ------------------------------------------------------------------------------->
   <footer id="footer-fixed">
     <span>本網站內容、圖片只用於作業使用，無任何商業營利行為</span>
   </footer>
 
   <!-- 灰階遮罩，將背景色變灰階 -->
   <div class="gray-mask"></div>
-  <!-- jQuery + fancybox，燈箱效果 -->
+
+  <!-- jQuery + fancybox 製作燈箱效果 -->
   <script src="./js/jquery.js"></script>
   <script src="./js/jquery.fancybox.js"></script>
   <script>
     $("[data-fancybox]").fancybox({
       iframe: {
         css: {
-          width: '50%',
+          width: '60%',
         }
       }
     });
