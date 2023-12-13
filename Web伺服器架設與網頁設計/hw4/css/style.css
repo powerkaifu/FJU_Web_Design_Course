@@ -13,8 +13,7 @@
   	border-box 則是寬度包含內容、padding 與 border
   	可以讓計算盒模型時調整寬度更方便，不用再去計算 padding 與 border
   */
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -24,7 +23,6 @@
   	轉場是兩種狀態的改變，瀏覽器會補上中間的補間動畫，讓狀態改變的過程更平滑
   	可以看到網頁許多地方都是動態轉場
   */
-  -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
@@ -119,8 +117,7 @@ img {
   background: #fff;
   margin: auto;
   padding: 20px;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border: 2px solid #000;
   position: relative;
 }
@@ -136,11 +133,8 @@ img {
 	容器(container)、列(row)、欄(col)、媒體查詢(media query)
 */
 .row {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .col {
@@ -183,16 +177,10 @@ img {
 	align-items: center 將彈性盒次軸(cross-axis) 對齊中間點
 */
 #navigator .menu {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   background: #fff;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   border-top: 3px solid #000;
   border-bottom: 3px solid #000;
   padding: 10px 0;
@@ -248,8 +236,7 @@ img {
 /* 設定首頁內容區圖片的陰影，圖片是 PNG 因此使用 filter，不使用 box-shadow */
 #index-content img {
   width: 550px;
-  -webkit-filter: drop-shadow(0 0 20px rgba(104, 0, 107, 0.3));
-          filter: drop-shadow(0 0 20px rgba(104, 0, 107, 0.3));
+  filter: drop-shadow(0 0 20px rgba(104, 0, 107, 0.3));
 }
 
 /* 喬斯達家族 ---------------------------------------------------------------------------------- */
@@ -270,8 +257,6 @@ img {
 /* 設定喬斯達家族的選單為 flex box，可以很容易做到橫向排列 */
 #family-content .family-menu {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-bottom: 1rem;
 }
@@ -396,9 +381,7 @@ img {
 
 /* 	justify-content:center 彈性盒主軸對齊中央 */
 #story-content .row {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   margin-bottom: 1rem;
   border: 1px solid #aaa;
 }
@@ -422,30 +405,22 @@ img {
 	選擇奇數的 row，它的第 1 個 col，排序在第 1 個位置
 */
 .row:nth-child(odd) .col:nth-child(1) {
-  -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
-          order: 1;
+  order: 1;
 }
 
 /* 選擇奇數的 row，它的第 2 個 col，排序在第 2 個位置 */
 .row:nth-child(odd) .col:nth-child(2) {
-  -webkit-box-ordinal-group: 3;
-      -ms-flex-order: 2;
-          order: 2;
+  order: 2;
 }
 
 /* 選擇偶數的 row，它的第 1 個 col，排序在第 2 個位置 */
 .row:nth-child(even) .col:nth-child(1) {
-  -webkit-box-ordinal-group: 3;
-      -ms-flex-order: 2;
-          order: 2;
+  order: 2;
 }
 
 /* 選擇偶數的 row，它的第 2 個 col，排序在第 1 個位置 */
 .row:nth-child(even) .col:nth-child(2) {
-  -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
-          order: 1;
+  order: 1;
 }
 
 /* 作品特色 --------------------------------------------------------------------------------- */
@@ -454,8 +429,7 @@ img {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 #features-content .col {
@@ -477,10 +451,8 @@ img {
 
 /* 滑鼠 hover 該頁面三張圖片會有陰影及往上移動效果 */
 #features-content .features-card:hover {
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  -webkit-transform: translateY(-10px);
-          transform: translateY(-10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-10px);
 }
 
 #features-content .features-card-title {
@@ -491,8 +463,7 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 #features-content .features-card p {
