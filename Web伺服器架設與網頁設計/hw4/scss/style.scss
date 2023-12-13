@@ -1,18 +1,12 @@
 /*
 	這份樣式表選擇器
-	id(#) 作為區塊、錨點、切換選單，具有唯一性
+	id(#) 作為區塊排版、錨點、切換選單，具有唯一性
 	class(.) 作為網格系統、外觀樣式、功能類別的，具有重複性
 	並使用到標籤、群組(,)、後代(半型空白)、nth-child、屬性、同層全體(~)、同層相鄰(+)、偽類(:)、偽元素(::)等等選擇器
 */
 
-/*
-	全局 reset 讓設計者擁有最大控制權
-	::after、::before 為每個元素標籤都會有兩個偽元素(pseudo-element)
-	就像火影忍者的影分身，一個元素可以有兩個影分身來幫本體做事情
-*/
-*,
-*::before,
-*::after {
+/* 全局 reset，去除掉一些元素外距、內距排版的因素，這樣設定可以擁有最大的控制權 */
+* {
 	/*
 		box-sizing 是 CSS 的盒模型計算方式，通常使用兩種模式
 		預設是 content-box，也就是寬度只包含內容，不包含 padding 與 border
@@ -76,7 +70,7 @@ a {
 	color: black;
 }
 
-/* 群組選擇器，選取所有 h1、h2、p 標籤，並設定 margin-bottom: 1rem */
+/* 群組選擇器，選取所有 h1、h2、p 標籤，設定下外距 */
 h1,
 h2,
 p {
@@ -131,7 +125,7 @@ img {
 
 /*
 	display: flex 宣告容器為彈性盒，用於我的欄位布局
-	flex-wrap 是宣告當容器內的元素超出容器寬度時，是否要換行
+	flex-wrap 是當容器內的元素超出容器寬度時，是否要換行
 
 	.row 為一列
 	.col 為一欄
@@ -153,7 +147,7 @@ img {
 	calc 計算高度，100vh 為螢幕高度
 	因為導覽列 + footer 的高度大約為 151px
 	100vh - 151px 可以計算出頁面剩餘的高度，讓 iframe 的高度可以填滿剩餘的高度
-	並下移 102px，因為導覽列的高度為 102px
+	並下移 102px，因為導覽列的高度為 102px，這樣才能在正確的顯示位置
 */
 #main {
 	height: calc(100vh - 151px);
@@ -164,6 +158,7 @@ img {
 #main iframe {
 	width: 100%;
 	height: 100%;
+	vertical-align: middle;
 }
 
 /* 導覽列 ---------------------------------------------------------------------------------- */
@@ -192,23 +187,31 @@ img {
 	padding: 10px 0;
 }
 
-/* .menu-item + .menu-item 為選單項目的分隔線，使用 + 選擇器，選取同層的下一個元素 */
+/* .menu-item + .menu-item 為選單項目的分隔線，使用 + 同層選擇器，選取同層的下一個元素 */
 #navigator .menu-item + .menu-item {
 	border-left: 1px solid #000;
 }
 
-/* .menu-item:not(:nth-child(4)) a 為不是第四個子元素的元素的 a 標籤 */
+/* 選擇 .menu-item 的第四個元素 */
 #navigator .menu-item:nth-child(4) {
 	position: absolute;
 	width: 10%;
 	border: none;
 }
 
+/* 選擇 .menu-item 的第五個元素 */
 #navigator .menu-item:nth-child(5) {
 	margin-left: 15%;
 	border-left: none;
 }
+
+/* 
+	選擇 .menu-item:not(:nth-child(4)) a，其為不是第四個子元素，其他元素的 a 標籤 
+	也就是選擇導覽列的 1、2、3、5、6、7  
+*/
+
 #navigator .menu-item:not(:nth-child(4)) a {
+	/* a 元素行內轉區塊 ，讓其佔滿父容器 */
 	display: block;
 	font-weight: bold;
 	padding: 5px 10px;
@@ -229,11 +232,13 @@ img {
 		position: absolute;
 		right: -20px;
 		top: -150px;
-
-		img {
-			width: 550px;
-		}
 	}
+}
+
+/* 設定首頁內容區圖片的陰影，圖片是 PNG 因此使用 filter，不使用 box-shadow */
+#index-content img {
+	width: 550px;
+	filter: drop-shadow(0 0 20px rgba(104, 0, 107, 0.3));
 }
 
 /* 喬斯達家族 ---------------------------------------------------------------------------------- */
@@ -250,13 +255,14 @@ img {
 		padding: 50px 450px 50px 20px;
 	}
 }
+/* 設定喬斯達家族的選單為 flex box，可以很容易做到橫向排列 */
 #family-content .family-menu {
 	width: 100%;
 	display: flex;
 	margin-bottom: 1rem;
 }
 
-// 角色資料先全部隱藏，position:relative 用於內部圖片(.ch1_img 到 .ch6_img)絕對定位，其位移對齊依據
+/* 角色資料先全部隱藏，position:relative 用於內部圖片(.ch1_img 到 .ch6_img)絕對定位，其位移對齊依據 */
 #family-content .ch1,
 #family-content .ch2,
 #family-content .ch3,
@@ -267,7 +273,7 @@ img {
 	position: relative;
 }
 
-/* 角色大圖定位，對齊位置其定位對齊會參考 .ch1~.ch6(上方的群組選擇器) */
+/* .ch1_img~.ch6_img 角色大圖的絕對定位 */
 #family-content .ch1_img {
 	width: 500px;
 	position: absolute;
@@ -323,7 +329,8 @@ img {
 	cursor: pointer;
 }
 
-// 同層相鄰選取器，選取 label 的下一個 label，設定左外距
+/* 同層相鄰選取器，選取 label 的下一個 label，設定左外距 */
+
 #family-content label + label {
 	margin-left: 3px;
 }
@@ -366,14 +373,14 @@ img {
 	padding: 50px 20px;
 }
 
-// object-fit 可以讓圖片依據容器比例做調整
+/* object-fit 可以讓圖片依據容器比例做調整 */
 #story-content img {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
 }
 
-// 彈性盒主軸對齊中央
+/* 	justify-content:center 彈性盒主軸對齊中央 */
 #story-content .row {
 	justify-content: center;
 	margin-bottom: 1rem;
@@ -384,17 +391,19 @@ img {
 	padding: 10px;
 }
 
-// 奇數欄位設定寬度
+/* 奇數欄位設定寬度 */
 #story-content .col:nth-child(odd) {
 	width: 25%;
 }
-// 偶數欄位設定寬度
+/* 偶數欄位設定寬度 */
 #story-content .col:nth-child(even) {
 	width: 75%;
 }
 
-// order 為對調彈性盒(flexbox) 的彈性項目的位置
-/* 選擇奇數的 row，它的第 1 個 col，排序在第 1 個位置 */
+/*  
+	order 為對調彈性盒(flexbox) 的彈性項目的位置
+	選擇奇數的 row，它的第 1 個 col，排序在第 1 個位置
+*/
 .row:nth-child(odd) .col:nth-child(1) {
 	order: 1;
 }
@@ -445,7 +454,7 @@ img {
 
 #features-content .features-card-title {
 	color: white;
-	// 文字陰影
+	/* 文字多重陰影 */
 	text-shadow: 1px 1px 1px black, 2px 2px 2px black;
 	/* 讓作品特色標題，以絕對定位做水平垂直置中 */
 	position: absolute;
@@ -455,33 +464,24 @@ img {
 }
 
 #features-content .features-card p {
-	/* 文字縮排 */
-	text-indent: 0;
-	/* 內距 */
-	padding: 10px;
-	/* 文字水平置中 */
-	text-align: center;
-	/* 字體大小 */
-	font-size: 1.2rem;
-	/* 文字顏色 */
-	color: white;
-	/* 背景顏色 */
-	background: purple;
+	text-indent: 0; /* 文字縮排 */
+	padding: 10px; /* 內距 */
+	text-align: center; /* 文字水平置中 */
+	font-size: 1.2rem; /* 字體大小 */
+	color: white; /* 文字顏色 */
+	background: purple; /* 背景顏色 */
 }
 /* 替身系統 ---------------------------------------------------------------------------------- */
 #stand-content {
-	/* 設定相對定位 */
-	position: relative;
+	position: relative; /* 設定相對定位 */
 	top: 50px;
 }
 
 #stand-content .container {
-	/* 內距 */
-	padding: 50px 20px;
+	padding: 50px 20px; /* 內距 */
 }
 
 #stand-content ul {
-	/* 無序清單設定 */
 	margin-left: 50px;
 	margin-bottom: 1rem;
 }
