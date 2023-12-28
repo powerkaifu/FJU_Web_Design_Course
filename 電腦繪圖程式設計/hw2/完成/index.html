@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>臉書朋友列表</title>
+  <style>
+    * {
+      transition: 0.3s;
+    }
+
+    body {
+      font-family: url("微軟正黑體");
+    }
+
+    table {
+      border-spacing: 0;
+    }
+
+    td {
+      padding: 0;
+    }
+
+    .people {
+      width: 480px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    .people td:nth-child(1) {
+      overflow: hidden;
+    }
+
+    .people td:nth-child(1) img:hover {
+      transform: scale(1.2);
+    }
+
+    .namestyle {
+      color: blue;
+      font-weight: bold;
+    }
+
+    .detail {
+      color: #aaa;
+    }
+
+    .namestyle,
+    .detail {
+      margin-left: 10px;
+    }
+
+    .detail:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .friend {
+      width: 75px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    .friend:hover img {
+      display: none;
+    }
+
+    .friend:hover {
+      background: url("images/friend_hover.jpg") no-repeat center/cover;
+      filter: invert(1);
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 蕭亞軒 -->
+  <div class="people">
+    <table width="100%" border="0">
+      <tr>
+        <td width="20%">
+          <img src="images/elva.jpg" width="100px" height="100px">
+        </td>
+        <td width="72%">
+          <div class="name">
+            <span class="namestyle">蕭亞軒</span><br>
+            <span class="detail">15 個共同朋友</span>
+          </div>
+        </td>
+        <td width="8%">
+          <div class="friend">
+            <img src="./images/friend.jpg">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- 林俊傑 -->
+  <div class="people">
+    <table width="100%" border="0">
+      <tr>
+        <td width="20%">
+          <img src="images/jjlin.jpg" width="100px" height="100px">
+        </td>
+        <td width="72%">
+          <div class="name">
+            <span class="namestyle">林俊傑</span><br>
+            <span class="detail">8 個共同朋友</span>
+          </div>
+        </td>
+        <td width="8%">
+          <div class="friend">
+            <img src="./images/friend.jpg">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- 周杰倫 -->
+  <div class="people">
+    <table width="100%" border="0">
+      <tr>
+        <td width="20%">
+          <img src="images/jay.jpg" width="100px" height="100px">
+        </td>
+        <td width="72%">
+          <div class="name">
+            <span class="namestyle">周杰倫</span><br>
+            <span class="detail">5 個共同朋友</span>
+          </div>
+        </td>
+        <td width="8%">
+          <div class="friend">
+            <img src="./images/friend.jpg">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- 阿密特 -->
+  <div class="people">
+    <table width="100%" border="0">
+      <tr>
+        <td width="20%">
+          <img src="images/amit.jpg" width="100px" height="100px">
+        </td>
+        <td width="72%">
+          <div class="name">
+            <span class="namestyle">阿密特</span><br>
+            <span class="detail">9 個共同朋友</span>
+          </div>
+        </td>
+        <td width="8%">
+          <div class="friend">
+            <img src="./images/friend.jpg">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- 蔡依林 -->
+  <div class="people">
+    <table width="100%" border="0">
+      <tr>
+        <td width="20%">
+          <img src="images/jolin.jpg" width="100px" height="100px">
+        </td>
+        <td width="72%">
+          <div class="name">
+            <span class="namestyle">蔡依林</span><br>
+            <span class="detail">20 個共同朋友</span>
+          </div>
+        </td>
+        <td width="8%">
+          <div class="friend">
+            <img src="./images/friend.jpg">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+
+</html>
